@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es5"
+    ],
+    "module": "es5",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "allowJs": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "target": "es5",
+    "declaration": true,
+    "baseUrl": "./",
+    "outDir": "build",
+    "paths": {
+      "icons/*": [
+        "./public/icons/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "entities/*": [
+        "src/entities/*"
+      ],
+      "store/*": [
+        "src/store/*"
+      ],
+      "styles/*": [
+        "src/styles/*"
+      ]
+    }
+  },
+  "include": ["declaration.d.ts", "src/**/*.ts", "src/**/*.tsx"],
+  "plugins": ["typescript-plugin-css-modules"],
+  "exclude": [
+    "node_modules"
+  ]
+}

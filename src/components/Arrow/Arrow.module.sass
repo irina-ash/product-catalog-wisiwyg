@@ -1,0 +1,122 @@
+.arrowWrapper
+  display: inline-block
+
+.arrow
+  position: relative
+  display: inline-block
+  width: inherit
+  height: inherit
+  cursor: pointer
+  border-radius: 50%
+  background: transparent
+  border: solid transparent 1px
+  transition-duration: .1s
+  &::after,
+  &::before
+    background: #505058
+    position: absolute
+    content: ''
+    top: 50%
+    left: 50%
+
+  &:hover
+    background: #3ab6ec
+    border-color: #3ab6ec
+    &::after,
+    &::before
+      background: white
+
+.arrow--direction-left
+  transform: scaleX(-1)
+
+.arrow--direction-top
+  transform: rotate(-90deg)
+
+.arrow--direction-bottom
+  transform: rotate(90deg)
+
+
+.arrowWrapper--size-xxs
+  width: 10px
+  height: 10px
+
+  .arrow
+    &::after,
+    &::before
+      width: 6px
+      height: 1px
+      border-radius: 1px
+      margin-top: -1px
+      margin-left: -1px
+    &::after
+      transform: rotate(45deg) translate(-3.5px, 1px)
+    &::before
+      transform: rotate(-45deg) translate(-3.5px, -1px)
+
+.arrowWrapper--size-xs
+  width: 16px
+  height: 16px
+
+  .arrow
+    &::after,
+    &::before
+      width: 9px
+      height: 1px
+      border-radius: 1px
+      margin-top: -1px
+      margin-left: -1px
+    &::after
+      transform: rotate(45deg) translate(-5px, 1px)
+    &::before
+      transform: rotate(-45deg) translate(-5px, -1px)
+
+.arrowWrapper--size-s
+  width: 36px
+  height: 36px
+
+  .arrow
+    &::after,
+    &::before
+      width: 9px
+      height: 2px
+      border-radius: 2px
+      margin-top: -1px
+      margin-left: 1px
+    &::after
+      transform: rotate(45deg) translate(-5px, 1px)
+    &::before
+      transform: rotate(-45deg) translate(-5px, -1px)
+
+.arrowWrapper--size-m
+  width: 48px
+  height: 48px
+
+  .arrow
+    &::after,
+    &::before
+      width: 11px
+      height: 2px
+      border-radius: 1px
+      margin-top: -1px
+      margin-left: -1px
+    &::after
+      transform: rotate(45deg) translate(-5px, 0px)
+    &::before
+      transform: rotate(-45deg) translate(-5px, 0px)
+
+.arrowWrapper--size-l
+  width: 60px
+  height: 60px
+
+  .arrow
+    &::after,
+    &::before
+      width: 13px
+      height: 2px
+      border-radius: 1px
+      margin-top: -1px
+      margin-left: -1px
+    &::after
+      transform: rotate(45deg) translate(-6px, 0px)
+    &::before
+      transform: rotate(-45deg) translate(-6px, 0px)

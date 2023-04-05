@@ -1,0 +1,31 @@
+.section
+  overflow: visible
+
+.main
+  width: 100%
+  display: flex
+  margin-bottom: 60px
+  justify-content: space-between
+  margin-top: 80px
+  @media(max-width: 767px)
+    justify-content: flex-start
+    flex-wrap: wrap
+.leftSide
+  width: 35%
+  margin-right: 32px
+  margin-bottom: 32px
+  @media(max-width: 767px)
+    width: 100%
+.rightSide
+  width: 60%
+  @media(max-width: 767px)
+    width: 100%
+
+.loaderTransparent
+  position: fixed
+  left: 0
+  top: 0
+  width: 100vw
+  height: 100vh
+  background-color: rgba(255,255,255, .5)
+  z-index: 100
