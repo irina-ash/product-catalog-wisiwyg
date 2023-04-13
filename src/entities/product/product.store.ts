@@ -1,5 +1,13 @@
 import {IProduct, IProductsState} from "./product.types";
 
+export const initialProduct: IProduct = {
+    id: null,
+    content: null,
+    active: false,
+    categoryId: 0,
+    title: "",
+}
+
 export const initialItems: IProduct[] = [
     {
         categoryId: 1,

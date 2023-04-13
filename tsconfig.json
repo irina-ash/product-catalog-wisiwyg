@@ -29,7 +29,7 @@
     "outDir": "build",
     "paths": {
       "icons/*": [
-        "./public/icons/*"
+        "public/icons/*"
       ],
       "components/*": [
         "src/components/*"

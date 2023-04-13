@@ -8,7 +8,7 @@ interface AlertPublishProductProp {
 
 const AlertPublishProduct = (props: AlertPublishProductProp) => {
   return (
-    <div className={styles.popup}>
+    <div>
       <h6>{props.title}</h6>
       <span>{props.message}</span>
     </div>

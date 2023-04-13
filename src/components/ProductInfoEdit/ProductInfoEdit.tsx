@@ -1,54 +1,46 @@
-import React, {lazy, useEffect, useState} from 'react';
-import styles from './ProductInfoEdit.module.sass';
+import React, {useEffect, useState} from 'react';
 import {ContentState, EditorState, convertToRaw} from 'draft-js';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "draft-js/dist/Draft.css";
-import {wysiwygToolbar} from './toolbar';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+
 import ProductInfo from "components/ProductInfo";
+import AlertPublishProduct from "components/AlertPublishProduct";
+
+import {wysiwygToolbar} from './toolbar';
+import {initialProduct} from "entities/product/product.store";
+import {BTN_LABEL_BACK, BTN_LABEL_PREVIEW, BTN_LABEL_SAVE} from "components/ProductInfoEdit/store";
+
 import {IProduct} from "entities/product/product.types";
 import {useAppDispatch} from "store/index";
 import {updateProduct} from "entities/product/product.slice";
-import AlertPublishProduct from "components/AlertPublishProduct";
 
 import {Editor} from "react-draft-wysiwyg/dist/react-draft-wysiwyg";
+import {IProductInfoEditProps} from "components/ProductInfoEdit/types";
 
-interface ProductInfoEditProp {
-    product: IProduct;
-    onFormChanged: (value:boolean) => void;
-    mode: 'edit' | 'preview';
-    setMode(value: 'edit' | 'preview'): void;
-}
+import styles from './ProductInfoEdit.module.sass';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "draft-js/dist/Draft.css";
 
-const initialValues: IProduct = {
-    id: null,
-    content: null,
-    active: false,
-    categoryId: 0,
-    title: "",
-}
-
-const ProductInfoEdit = (props: ProductInfoEditProp) => {
-    const contentBlock = htmlToDraft(props.product.content || '');
+const ProductInfoEdit = ({mode, onFormChanged, product, setMode}: IProductInfoEditProps) => {
+    const contentBlock = htmlToDraft(product.content || '');
     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
     const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState));
-    const [htmlContent, setHtmlContent] = useState<string>(props.product.content || '<p></p>');
+    const [htmlContent, setHtmlContent] = useState<string>(product.content || '<p></p>');
     const [contentChanged, setContentChanged] = useState<boolean>(false);
     const [publishError, setPublishError] = useState<string | null>(null);
-    const [values, setValues] = useState<IProduct>(initialValues);
+    const [values, setValues] = useState<IProduct>(initialProduct);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (props.product) {
-            setValues(props.product);
+        if (product) {
+            setValues(product);
         }
-    }, [props.product])
+    }, [product])
 
     useEffect(() => {
         if (htmlContent && contentChanged) {
-            props.onFormChanged(true);
+            onFormChanged(true);
         }
     }, [htmlContent]);
 
@@ -93,14 +85,14 @@ const ProductInfoEdit = (props: ProductInfoEditProp) => {
     return (
         <form onSubmit={onSubmit}>
             <div className={styles.headline}>
-                {props.mode === 'edit' ? <>
-                        <h1>{props.product.title}</h1>
+                {mode === 'edit' ? <>
+                        <h1>{product.title}</h1>
                         <button
                             onClick={() => {
-                                props.setMode('preview')
+                                setMode('preview')
                             }}
                         >
-                            Предпросмотр
+                            {BTN_LABEL_PREVIEW}
                         </button>
                     </> :
                     <>
@@ -108,21 +100,21 @@ const ProductInfoEdit = (props: ProductInfoEditProp) => {
                             className={styles.buttons}
                             type="submit"
                         >
-                            Сохранить
+                            {BTN_LABEL_SAVE}
                         </button>
                         <button
                             className={styles.buttons}
                             onClick={() => {
-                                props.setMode('edit')
+                                setMode('edit')
                             }}
                         >
-                            Вернуться в редактор
+                            {BTN_LABEL_BACK}
                         </button>
                     </>
                 }
             </div>
 
-            {props.mode === 'edit' ?
+            {mode === 'edit' ?
                 <div>
                     <label>Описание</label>
                     <div className={styles.wysiwygContainer}>

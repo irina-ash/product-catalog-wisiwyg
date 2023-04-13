@@ -38,9 +38,6 @@ const ConfirmRemoveCategory = ({
 
     return (
         <Popup
-            className={cn(styles.popup, {
-                [styles.popupSuccess]: deleting === 'success',
-            })}
             description={deleting !== 'success' ? `Подтвердите удаление категории "${category?.title}" из каталога` : null}
             title={deleting === 'success' ? "Категория успешно удалена" : "Удаление категории"}
         >

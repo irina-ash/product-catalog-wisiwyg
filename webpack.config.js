@@ -31,9 +31,9 @@ module.exports = {
                 test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
                 type: 'asset/resource',
             },
-            // шрифты и SVG
+            // шрифты
             {
-                test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+                test: /\.(woff(2)?|eot|ttf|otf)$/,
                 type: 'asset/inline',
             },
             {
@@ -42,6 +42,15 @@ module.exports = {
                         test: /\.module\.s[ac]ss$/,
                         use: [
                             MiniCssExtractPlugin.loader,
+                            {
+                                loader: "css-loader",
+                                options: {
+                                    modules: {
+                                        exportGlobals: true,
+                                        localIdentName: "[local]___[hash:base64:5]",
+                                    },
+                                },
+                            },
                             {
                                 loader: "sass-loader",
                                 options: {
@@ -88,6 +97,10 @@ module.exports = {
                         },
                     },
                 ],
+            },
+            {
+                test: /\.svg$/,
+                use: ["@svgr/webpack"],
             },
         ],
     },

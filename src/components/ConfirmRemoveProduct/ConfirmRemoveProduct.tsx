@@ -30,9 +30,6 @@ const ConfirmRemoveProduct = ({
 
   return (
     <Popup
-      className={cn(styles.popup, {
-        [styles.popupSuccess]: complete,
-      })}
       description={
         !complete
           ? `Подтвердите удаление продукта "${product?.title}" из каталога`

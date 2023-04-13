@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import styles from './ProductList.module.sass';
+import cn from "classnames";
+
 import ProductListItem from 'components/ProductListItem';
 import CategoryItem from 'components/CategoryItem';
-import {IExpandedItem, IProductListProps} from "./types";
-import {useAppDispatch} from "store/index";
-import {IProductItem} from "entities/product/product.types";
-import {IProductCategory} from "entities/category/category.types";
 
-import AddIcon from "icons/Add.png";
+import {useAppDispatch} from "store/index";
+
+import AddIcon from "icons/Add.svg";
 import EditIcon from "icons/Edit.svg";
 import RemoveIcon from "icons/Bin.svg";
-import cn from "classnames";
+
+import styles from './ProductList.module.sass';
+
+import {IProductItem} from "entities/product/product.types";
+import {IProductCategory} from "entities/category/category.types";
+import {IExpandedItem, IProductListProps} from "./types";
+import {TITLE} from "components/ProductList/store";
 
 const ProductList = ({
     categories,
@@ -81,18 +86,18 @@ const ProductList = ({
   return (
     <>
       <div className={styles.title}>
-        <h6>
-          Категории продуктов
-        </h6>
-          {/* <button className={styles.add} onClick={onAddCategoryClick}>
-            <AddIcon/>
-          </button>*/}
+        <h2>
+            {TITLE}
+        </h2>
+           <button className={styles.add} onClick={onAddCategoryClick}>
+            <AddIcon />
+          </button>
       </div>
       <ul className={styles.list}>
         {categories.map((category, idx) => (
           <li key={`product-catalog-category-${idx}`}>
             <CategoryItem
-               /* controls={
+                controls={
                     <div className={styles.controls}>
                         <button className={cn(styles.addWithMargin, styles.add)} onClick={() => onAddProductClick(category)}>
                             <AddIcon/>
@@ -105,7 +110,7 @@ const ProductList = ({
                             <RemoveIcon />
                         </button>
                     </div>
-                }*/
+                }
               name={category.title}
               onClick={() => onExpandCategory(category.id)}
               selected={!!expandList?.find(c => c.id === category.id)?.expand}
@@ -116,7 +121,7 @@ const ProductList = ({
                 {category?.products?.map((item, idx) => (
                     <ProductListItem
                       key={`product-catalog-item-${idx}`}
-                     /* controls={
+                      controls={
                           <div className={styles.controls}>
                               <div className={styles.toggle}>0</div>
                               <button onClick={(e) => onEditProductClick(item, e)}>
@@ -126,7 +131,7 @@ const ProductList = ({
                                   <RemoveIcon />
                               </button>
                           </div>
-                      }*/
+                      }
                       name={item.title}
                       onSelect={() => setSelectedProduct(item.id)}
                       selected={selectedProduct === item.id}

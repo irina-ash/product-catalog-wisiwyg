@@ -54,9 +54,6 @@ const ProductModal = (props: IProductModalProps) => {
 
   return (
     <Popup
-      className={cn(styles.popup, {
-        [styles.popupSuccess]: complete,
-      })}
       description={
         !complete && props.type === 'create' && props.category
           ? `Добавить новый продукт в категорию "${props.category.title}"`
@@ -65,13 +62,16 @@ const ProductModal = (props: IProductModalProps) => {
       title={complete ? titleComplete[props.type] : title[props.type]}
     >
         <form onSubmit={onSubmit}>
-            <label>Наименование продукта</label>
-            <input
-              name="name"
-              maxLength={100}
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-            />
+            <label>
+                Наименование продукта
+                <input
+                  className={styles.input}
+                  name="name"
+                  maxLength={100}
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                />
+            </label>
 
             <button
               className={styles.button}

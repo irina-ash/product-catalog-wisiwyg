@@ -119,7 +119,7 @@ const ProductCatalog = () => {
     if (getCategoriesLoadingState === "loading") return <Loader/>;
 
     return (
-        <>
+        <section className={styles.section}>
             {categories?.length > 0 ?
                 <main className={styles.main}>
                     <div className={styles.leftSide}>
@@ -203,7 +203,7 @@ const ProductCatalog = () => {
                     opened={skipChangesOpen}
                 />
             )}
-        </>
+        </section>
     )
 }
 

@@ -11,7 +11,6 @@ interface ConfirmSkipChangesProp extends IPopupModalCommonProps {
 const ConfirmSkipChanges = (props: ConfirmSkipChangesProp) => {
   return (
     <Popup
-      className={styles.popup}
       description="На форме редактирования продукта имеются несохранённые изменения. Выберите действие."
       title="Сохранение изменений"
     >

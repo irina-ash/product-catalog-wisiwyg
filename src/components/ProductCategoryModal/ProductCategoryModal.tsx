@@ -59,9 +59,6 @@ const ProductCategoryModal = (props: IProductCategoryModalProps) => {
 
   return (
     <Popup
-      className={cn(styles.popup, {
-        [styles.popupSuccess]: complete,
-      })}
       title={complete ? titleComplete[props.type] : title[props.type]}
     >
         <form onSubmit={onSubmit} >
