@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import cn from 'classnames';
-import styles from './ConfirmRemoveCategory.module.sass';
+import styles from './ConfirmRemoveCategory.module.scss';
 import Popup from 'components/Popup';
 import {IPopupModalCommonProps} from 'entities/common/common.types';
 import {IProductCategory} from "entities/category/category.types";

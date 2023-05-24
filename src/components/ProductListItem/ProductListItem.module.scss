@@ -1,0 +1,30 @@
+@import "styles/colors";
+
+.product {
+  display: flex;
+  justify-content: space-between;
+  min-height: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  cursor: pointer;
+  padding-left: 32px;
+
+  &:hover {
+    background-color: $clr-gray-light;
+  }
+
+  &Name {
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 350px;
+  }
+
+  &WithControls {
+    max-width: 195px;
+  }
+}
+
+.selected {
+  color: $clr-green-light;
+}

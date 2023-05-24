@@ -1,4 +1,4 @@
-import styles from './ProductInfoEdit.module.sass';
+import styles from './ProductInfoEdit.module.scss';
 
 export const wysiwygToolbar = {
   options: [

@@ -1,5 +1,5 @@
 import React, {useEffect, useState, MouseEvent} from 'react';
-import styles from './ProductCatalog.module.sass';
+import styles from './ProductCatalog.module.scss';
 import Loader from 'components/Loader';
 import ProductList from 'components/ProductList';
 import ProductInfoEdit from 'components/ProductInfoEdit';

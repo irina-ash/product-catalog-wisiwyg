@@ -3,6 +3,7 @@ import {ContentState, EditorState, convertToRaw} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
+import Button from 'components/Button';
 import ProductInfo from "components/ProductInfo";
 import AlertPublishProduct from "components/AlertPublishProduct";
 
@@ -17,7 +18,7 @@ import {updateProduct} from "entities/product/product.slice";
 import {Editor} from "react-draft-wysiwyg/dist/react-draft-wysiwyg";
 import {IProductInfoEditProps} from "components/ProductInfoEdit/types";
 
-import styles from './ProductInfoEdit.module.sass';
+import styles from './ProductInfoEdit.module.scss';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "draft-js/dist/Draft.css";
 
@@ -86,37 +87,24 @@ const ProductInfoEdit = ({mode, onFormChanged, product, setMode}: IProductInfoEd
         <form onSubmit={onSubmit}>
             <div className={styles.headline}>
                 {mode === 'edit' ? <>
-                        <h1>{product.title}</h1>
-                        <button
-                            onClick={() => {
-                                setMode('preview')
-                            }}
-                        >
+                        <div className={styles.title}>{product.title}</div>
+                        <Button onClick={() => {setMode('preview')}} theme="success">
                             {BTN_LABEL_PREVIEW}
-                        </button>
+                        </Button>
                     </> :
                     <>
-                        <button
-                            className={styles.buttons}
-                            type="submit"
-                        >
+                        <Button type="submit" theme="success">
                             {BTN_LABEL_SAVE}
-                        </button>
-                        <button
-                            className={styles.buttons}
-                            onClick={() => {
-                                setMode('edit')
-                            }}
-                        >
+                        </Button>
+                        <Button onClick={() => { setMode('edit') }}>
                             {BTN_LABEL_BACK}
-                        </button>
+                        </Button>
                     </>
                 }
             </div>
 
             {mode === 'edit' ?
                 <div>
-                    <label>Описание</label>
                     <div className={styles.wysiwygContainer}>
                         <Editor
                             editorClassName={styles.editor}

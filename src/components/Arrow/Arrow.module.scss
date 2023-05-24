@@ -1,0 +1,63 @@
+@import "styles/colors";
+
+.arrowWrapper {
+  display: inline-block;
+}
+
+.arrow {
+  position: relative;
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  cursor: pointer;
+  border-radius: 50%;
+  background: transparent;
+  border: solid transparent 1px;
+  transition-duration: .1s;
+
+  &::after,
+  &::before {
+    background: #505058;
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 2px;
+    border-radius: 2px;
+    margin-top: -1px;
+    margin-left: 1px;
+  }
+
+  &::after {
+    transform: rotate(45deg) translate(-5px, 1px);
+  }
+
+  &::before {
+    transform: rotate(-45deg) translate(-5px, -1px);
+  }
+
+  &:hover {
+    &::after,
+    &::before {
+      background: $clr-green-light;
+    }
+  }
+
+  &Wrapper {
+    width: 36px;
+    height: 36px;
+  }
+
+  &--direction {
+    &-left {
+      transform: scaleX(-1);
+    }
+    &-top {
+      transform: rotate(-90deg);
+    }
+    &-bottom {
+      transform: rotate(90deg);
+    }
+  }
+}

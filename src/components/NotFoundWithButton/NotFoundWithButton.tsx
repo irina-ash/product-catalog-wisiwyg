@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import styles from './NotFoundWithButton.module.sass';
+import styles from './NotFoundWithButton.module.scss';
 
 interface INotFoundWithButtonProp {
   title?: string | null;

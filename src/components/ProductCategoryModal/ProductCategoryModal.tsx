@@ -1,6 +1,7 @@
 import React, {memo, useEffect, useState} from 'react';
 import cn from 'classnames';
-import styles from './ProductCategoryModal.module.sass';
+import styles from './ProductCategoryModal.module.scss';
+import Button from 'components/Button';
 import Popup from 'components/Popup';
 import {useAppDispatch, useAppSelector} from 'store/index';
 import {
@@ -11,18 +12,9 @@ import {
 } from 'entities/category/category.slice';
 import {IProductCategoryModalProps} from "./types";
 import {selectProductsState} from "entities/product/product.slice";
+import { TITLE_COMPLETE, TITLE } from './constants';
 
-const title = {
-  update: 'Редактировать категорию',
-  create: 'Добавить категорию',
-};
-
-const titleComplete = {
-  update: 'Категория изменена',
-  create: 'Категория добавлена',
-};
-
-const ProductCategoryModal = (props: IProductCategoryModalProps) => {
+const ProductCategoryModal = ({onCloseModal, opened, category, type}: IProductCategoryModalProps) => {
   const [name, setName] = useState("");
   const {creating, updating} = useAppSelector(selectCategoriesState);
   const {productsAll} = useAppSelector(selectProductsState);
@@ -34,16 +26,22 @@ const ProductCategoryModal = (props: IProductCategoryModalProps) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (type === "update" && category) {
+      setName(category.title);
+    }
+  }, [type, category]);
+
+  useEffect(() => {
     if (complete) {
       dispatch(getProductTree(productsAll));
     }
   }, [complete]);
 
   const onSubmit = () => {
-    if (props.type === 'update' && props.category) {
+    if (type === 'update' && category) {
       dispatch(
         updateCategory({
-          id: props.category.id,
+          id: category.id,
           data: {title: name},
         }),
       );
@@ -54,29 +52,38 @@ const ProductCategoryModal = (props: IProductCategoryModalProps) => {
       };
       dispatch(addCategory(data));
     }
-    props.onCloseModal();
+    onCloseModal();
   };
 
   return (
     <Popup
-      title={complete ? titleComplete[props.type] : title[props.type]}
+      title={complete ? TITLE_COMPLETE[type] : TITLE[type]}
     >
         <form onSubmit={onSubmit} >
           <label>Наименование категории</label>
           <input
+            className={styles.input}
             name="name"
             maxLength={100}
             onChange={(e) => setName(e.target.value)}
             value={name}
           />
 
-          <button
-            className={styles.button}
-            disabled={!name || isSubmitting}
-            type="submit"
-          >
-            {isSubmitting ? 'Сохранение...' : 'Сохранить'}
-          </button>
+          <div className={styles.buttons}>
+            <Button
+              type="button"
+              onClick={onCloseModal}
+            >
+              Отмена
+            </Button>
+            <Button
+              disabled={!name || isSubmitting}
+              type="submit"
+              theme="success"
+            >
+              {isSubmitting ? 'Сохранение...' : 'Сохранить'}
+            </Button>
+          </div>
       </form>
     </Popup>
   );

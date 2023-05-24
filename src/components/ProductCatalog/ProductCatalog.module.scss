@@ -1,0 +1,49 @@
+@import "styles/colors";
+
+.section {
+  overflow: visible;
+  padding: 0 56px;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  margin-bottom: 60px;
+  justify-content: space-between;
+  margin-top: 80px;
+
+  @media(max-width: 767px) {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+.leftSide {
+  width: 20%;
+  margin-right: 32px;
+  margin-bottom: 32px;
+  padding-top: 16px;
+
+  @media(max-width: 767px) {
+    width: 100%;
+  }
+}
+
+.rightSide {
+  background-color: $clr-gray-light;
+  padding: 8px 24px;
+  width: 80%;
+
+  @media(max-width: 767px) {
+    width: 100%;
+  }
+}
+
+.loaderTransparent {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+}

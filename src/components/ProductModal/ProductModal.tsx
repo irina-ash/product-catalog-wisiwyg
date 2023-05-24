@@ -1,6 +1,7 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import cn from 'classnames';
-import styles from './ProductModal.module.sass';
+import styles from './ProductModal.module.scss';
+import Button from 'components/Button';
 import Popup from 'components/Popup';
 import {useAppDispatch, useAppSelector} from 'store/index';
 import {
@@ -20,7 +21,7 @@ const titleComplete = {
   create: 'Новый продукт добавлен',
 };
 
-const ProductModal = (props: IProductModalProps) => {
+const ProductModal = ({onCloseModal, opened, type, category, product}: IProductModalProps) => {
   const [name, setName] = useState("");
   const {creating, updating} = useAppSelector(selectProductsState);
 
@@ -30,36 +31,44 @@ const ProductModal = (props: IProductModalProps) => {
       creating === 'loading' || updating === 'loading';
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (type === 'update' && product) {
+      setName(product.title);
+    }
+  }, [type, product])
+
   const onSubmit = () => {
-    if (props.type === 'update' && props.product) {
+    if (type === 'update' && product) {
       dispatch(
         updateProduct({
-          id: props.product.id,
+          id: product.id,
           data: {title: name},
         }),
       );
-    } else if (props.category) {
+    } else if (category) {
       const data = {
         active: false,
         title: name,
-        productCategory: props.category.id,
+        productCategory: category.id,
       };
       dispatch(addProduct(data));
     }
   };
 
   const initialValues = {
-    title: props.type === 'update' && props.product ? props.product.title : '',
+    title: type === 'update' && product ? product.title : '',
   };
 
   return (
     <Popup
-      description={
-        !complete && props.type === 'create' && props.category
-          ? `Добавить новый продукт в категорию "${props.category.title}"`
-          : null
+      title={
+        complete 
+        ? titleComplete[type] 
+        : `${title[type]}${
+              (type === "create" && category) 
+              ? ` в категорию "${category.title}"` 
+              : ''}`
       }
-      title={complete ? titleComplete[props.type] : title[props.type]}
     >
         <form onSubmit={onSubmit}>
             <label>
@@ -73,13 +82,22 @@ const ProductModal = (props: IProductModalProps) => {
                 />
             </label>
 
-            <button
-              className={styles.button}
-              disabled={!name?.length || isSubmitting}
-              type="submit"
-            >
-              {isSubmitting ? 'Сохранение...' : 'Сохранить'}
-            </button>
+            <div className={styles.buttons}>
+              <Button
+                type="button"
+                onClick={onCloseModal}
+              >
+                Отмена
+              </Button>
+              <Button
+                className={styles.button}
+                disabled={!name?.length || isSubmitting}
+                type="submit"
+                theme="success"
+              >
+                {isSubmitting ? 'Сохранение...' : 'Сохранить'}
+              </Button>
+            </div>
         </form>
     </Popup>
   );

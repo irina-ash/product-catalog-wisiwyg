@@ -1,17 +1,16 @@
 import React, {memo} from "react";
 import cn from "classnames";
-import styles from "./Arrow.module.sass";
+import styles from "./Arrow.module.scss";
 import {IArrowProps} from "./types";
 
 const Arrow = ({
                    className,
                    direction = "right",
                    onClick,
-                   size = "xs",
                }: IArrowProps) => {
     return (
         <div
-            className={cn(className, styles.arrowWrapper, styles[`arrowWrapper--size-${size}`])}
+            className={cn(className, styles.arrowWrapper)}
         >
             <div
                 className={cn(styles.arrow, styles[`arrow--direction-${direction}`])}

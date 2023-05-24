@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import cn from 'classnames';
-import styles from './ProductListItem.module.sass';
+import styles from './ProductListItem.module.scss';
 import {IProductListItemProps} from "./types";
 
 const ProductListItem = ({name, selected, onSelect, controls}: IProductListItemProps) => (

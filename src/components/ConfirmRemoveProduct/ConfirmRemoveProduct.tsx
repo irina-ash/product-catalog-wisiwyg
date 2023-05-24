@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import cn from 'classnames';
-import styles from './ConfirmRemoveProduct.module.sass';
+import styles from './ConfirmRemoveProduct.module.scss';
 import Popup from 'components/Popup';
 import {IPopupModalCommonProps} from 'entities/common/common.types';
 import {IProductItem} from "entities/product/product.types";

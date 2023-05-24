@@ -26,81 +26,40 @@ module.exports = {
                     loader: 'babel-loader',
                 },
             },
-            // изображения
             {
-                test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-                type: 'asset/resource',
-            },
-            // шрифты
-            {
-                test: /\.(woff(2)?|eot|ttf|otf)$/,
-                type: 'asset/inline',
-            },
-            {
-                oneOf: [
-                    {
-                        test: /\.module\.s[ac]ss$/,
-                        use: [
-                            MiniCssExtractPlugin.loader,
-                            {
-                                loader: "css-loader",
-                                options: {
-                                    modules: {
-                                        exportGlobals: true,
-                                        localIdentName: "[local]___[hash:base64:5]",
-                                    },
-                                },
-                            },
-                            {
-                                loader: "sass-loader",
-                                options: {
-                                    sassOptions: {
-                                        importer: jsonImporter(),
-                                    },
-                                    webpackImporter: false,
-                                },
-                            },
-                        ],
-                    },
-                    {
-                        use: [
-                            MiniCssExtractPlugin.loader,
-                            {
-                                loader: "css-loader",
-                                options: {
-                                    sourceMap: true,
-                                },
-                            },
-                            {
-                                loader: "sass-loader",
-                                options: {
-                                    sassOptions: {
-                                        importer: jsonImporter(),
-                                    },
-                                    sourceMap: true,
-                                    webpackImporter: false,
-                                },
-                            },
-                        ],
-                    },
-                ],
-                test: /\.s[ac]ss$/i,
-            },
-            {
-                test: /\.css$/i,
+                sideEffects: true,
+                test: /\.(c|sa|sc)ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader",
-                        options: {
-                            sourceMap: true,
-                        },
+                  MiniCssExtractPlugin.loader,
+                  {
+                    loader: "css-loader",
+                    options: {
+                      importLoaders: 2,
+                      modules: {
+                        auto: true,
+                        exportGlobals: true,
+                        localIdentName: "[name]__[local]--[hash:base64:5]",
+                      },
                     },
+                  },
+                  {
+                    loader: "sass-loader",
+                    options: { sassOptions: { importer: jsonImporter() } },
+                  },
                 ],
             },
             {
                 test: /\.svg$/,
                 use: ["@svgr/webpack"],
+            },
+            {
+                exclude: /node_modules/,
+                loader: "file-loader",
+                options: {
+                  name: "[path][name].[ext]",
+                  publicPath: "./",
+                },
+                test: /\.(svg|jpg|jpeg|png|gif|eot|ttf|woff|woff2)$/,
             },
         ],
     },
@@ -115,7 +74,7 @@ module.exports = {
             entities: path.resolve(__dirname, "src/entities/"),
             store: path.resolve(__dirname, "src/store/"),
             styles: path.resolve(__dirname, "src/styles/"),
-            icons: path.resolve(__dirname, "public/icons/"),
+            icons: path.resolve(__dirname, "src/assets/icons/"),
         },
         extensions: [".cjs", ".js", ".jsx", ".json", ".ts", ".tsx", ".css", ".scss", ".sass"],
     },

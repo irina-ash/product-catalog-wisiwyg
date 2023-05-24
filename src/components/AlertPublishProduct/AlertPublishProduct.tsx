@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import styles from './AlertPublishProduct.module.sass';
+import styles from './AlertPublishProduct.module.scss';
 
 interface AlertPublishProductProp {
   message: string | null;

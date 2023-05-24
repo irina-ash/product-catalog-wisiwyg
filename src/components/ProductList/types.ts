@@ -13,7 +13,3 @@ export interface IProductListProps {
     onRemoveProductClick(product: IProductItem, e: MouseEvent): void;
     categories: IProductCategory[];
 }
-export interface IExpandedItem {
-    id: number;
-    expand: boolean;
-}

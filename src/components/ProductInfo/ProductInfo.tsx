@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import styles from './ProductInfo.module.sass';
+import styles from './ProductInfo.module.scss';
 import {IProduct} from 'entities/product/product.types';
 
 interface ProductInfoProp {

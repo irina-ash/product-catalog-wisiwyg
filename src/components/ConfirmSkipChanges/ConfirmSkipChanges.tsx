@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import styles from './ConfirmSkipChanges.module.sass';
+import styles from './ConfirmSkipChanges.module.scss';
 import Popup from 'components/Popup';
 import {IPopupModalCommonProps} from 'entities/common/common.types';
 

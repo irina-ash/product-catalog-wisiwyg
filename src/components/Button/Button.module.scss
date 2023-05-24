@@ -1,0 +1,45 @@
+@import "styles/colors";
+
+.button {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  text-decoration: none;
+  user-select: none;
+  transition: 0.3s background-color, 0.3s border-color;
+  border: none;
+  border-radius: 4px;
+  color: $clr-white;
+  padding: 8px 16px;
+
+  &Full {
+    width: 100%;
+  }
+
+  &CursorPointer {
+    cursor: pointer;
+  }
+
+  &PointerEventsOff {
+    pointer-events: none;
+  }
+
+  & svg {
+    max-height: 20px;
+  }
+
+  &--default {
+    background-color: $clr-gray;
+  }
+
+  &--success {
+    background-color: $clr-green;
+  }
+
+  &--flat {
+    background-color: transparent;
+    color: $clr-gray;
+  }
+}

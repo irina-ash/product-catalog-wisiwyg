@@ -1,6 +1,7 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import cn from "classnames";
 
+import Button from "components/Button";
 import ProductListItem from 'components/ProductListItem';
 import CategoryItem from 'components/CategoryItem';
 
@@ -10,11 +11,11 @@ import {ReactComponent as AddIcon} from "icons/Add.svg";
 import {ReactComponent as EditIcon} from "icons/Edit.svg";
 import {ReactComponent as RemoveIcon} from "icons/Bin.svg";
 
-import styles from './ProductList.module.sass';
+import styles from './ProductList.module.scss';
 
 import {IProductItem} from "entities/product/product.types";
 import {IProductCategory} from "entities/category/category.types";
-import {IExpandedItem, IProductListProps} from "./types";
+import {IProductListProps} from "./types";
 import {TITLE} from "components/ProductList/store";
 
 const ProductList = ({
@@ -28,60 +29,20 @@ const ProductList = ({
     onRemoveProductClick,
     onAddCategoryClick,
 }: IProductListProps) => {
-  const [expandList, setExpandList] = useState<IExpandedItem[]>([]);
-    const [publishError, setPublishError] = useState<string | null>(null);
+  const [expandList, setExpandList] = useState<number[]>([]);
+  const [publishError, setPublishError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setExpandList(categories?.map(c => ({
-        id: c.id,
-        expand: false,
-    })));
+    setExpandList(categories?.map(c => c.id));
   }, [categories]);
 
-  const onExpandCategory = (id: number) => {
+  const onExpandCategory = useCallback((id: number) => {
       setExpandList(oldList => {
-          const idx = oldList?.findIndex(c => c.id === id);
-          if (idx === -1) return oldList;
-          const copyArr = oldList;
-          copyArr[idx] = {
-              ...oldList[idx],
-              expand: !oldList[idx].expand,
-          };
-          return copyArr;
+        if (oldList?.includes(id)) return oldList?.filter(a => a !== id) || [];
+        else return [...oldList, id];
       });
-  };
-
-    /*const activeProductButtonHandler = useCallback(
-        debounce(700, true, (item: IProductItem, e: MouseEvent) => {
-            e.stopPropagation();
-            const descEmpty = !item.content || item.content.trim() === '';
-            if (!item.active && descEmpty) {
-                setPublishError('Описание');
-            } else {
-                setPublishError(null);
-                dispatch(
-                    patchProduct({
-                        url: item.id,
-                        data: {active: !item.active},
-                    }),
-                ).then(() => dispatch(getProducts()));
-            }
-        }),
-        [],
-    );
-
-    const activeCategoryButtonHandler = useCallback(
-        debounce(700, true, (item: IProductCategory) => {
-            dispatch(
-                patchProductCategory({
-                    url: item.id,
-                    data: {active: !item.active},
-                }),
-            ).then(() => dispatch(getProductCategories()));
-        }),
-        [],
-    );*/
+  }, [expandList]);
 
   return (
     <>
@@ -89,9 +50,9 @@ const ProductList = ({
         <h2>
             {TITLE}
         </h2>
-           <button className={styles.add} onClick={onAddCategoryClick}>
-            <AddIcon />
-          </button>
+        <Button className={styles.add} onClick={onAddCategoryClick}>
+          <AddIcon />
+        </Button>
       </div>
       <ul className={styles.list}>
         {categories.map((category, idx) => (
@@ -99,21 +60,20 @@ const ProductList = ({
             <CategoryItem
                 controls={
                     <div className={styles.controls}>
-                        <button className={cn(styles.addWithMargin, styles.add)} onClick={() => onAddProductClick(category)}>
+                        <Button className={styles.add} onClick={() => onAddProductClick(category)}>
                             <AddIcon/>
-                        </button>
-                        <div className={styles.toggle}>0</div>
-                        <button onClick={() => onEditCategoryClick(category)}>
+                        </Button>
+                        <Button onClick={() => onEditCategoryClick(category)} theme="flat">
                             <EditIcon/>
-                        </button>
-                        <button onClick={() => onRemoveCategoryClick(category)}>
+                        </Button>
+                        <Button onClick={() => onRemoveCategoryClick(category)} theme="flat">
                             <RemoveIcon />
-                        </button>
+                        </Button>
                     </div>
                 }
               name={category.title}
               onClick={() => onExpandCategory(category.id)}
-              selected={!!expandList?.find(c => c.id === category.id)?.expand}
+              selected={expandList?.includes(category.id)}
             />
 
             {expandList[category.id] && (
@@ -123,13 +83,12 @@ const ProductList = ({
                       key={`product-catalog-item-${idx}`}
                       controls={
                           <div className={styles.controls}>
-                              <div className={styles.toggle}>0</div>
-                              <button onClick={(e) => onEditProductClick(item, e)}>
-                                  <EditIcon/>
-                              </button>
-                              <button onClick={(e) => onRemoveProductClick(item, e)}>
-                                  <RemoveIcon />
-                              </button>
+                            <Button onClick={(e) => onEditProductClick(item, e)} theme="flat">
+                                <EditIcon/>
+                            </Button>
+                            <Button onClick={(e) => onRemoveProductClick(item, e)} theme="flat">
+                                <RemoveIcon />
+                            </Button>
                           </div>
                       }
                       name={item.title}

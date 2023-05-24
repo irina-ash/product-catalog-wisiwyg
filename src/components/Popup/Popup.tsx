@@ -1,6 +1,6 @@
 import React from "react";
 import cn from "classnames";
-import styles from "./Popup.module.sass";
+import styles from "./Popup.module.scss";
 import {IPopupProps} from "./types";
 
 export const Popup = ({ description, className, children, title }: IPopupProps) => {
