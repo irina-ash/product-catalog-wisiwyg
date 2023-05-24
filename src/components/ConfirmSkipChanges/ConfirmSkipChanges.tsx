@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from './ConfirmSkipChanges.module.sass';
 import Popup from 'components/Popup';
 import {IPopupModalCommonProps} from 'entities/common/common.types';
@@ -30,4 +30,4 @@ const ConfirmSkipChanges = (props: ConfirmSkipChangesProp) => {
   );
 };
 
-export default ConfirmSkipChanges;
+export default memo(ConfirmSkipChanges);

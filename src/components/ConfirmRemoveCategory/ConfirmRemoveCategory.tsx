@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import cn from 'classnames';
 import styles from './ConfirmRemoveCategory.module.sass';
 import Popup from 'components/Popup';
@@ -61,4 +61,4 @@ const ConfirmRemoveCategory = ({
     )
 }
 
-export default ConfirmRemoveCategory;
+export default memo(ConfirmRemoveCategory);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import cn from 'classnames';
 import styles from './ConfirmRemoveProduct.module.sass';
 import Popup from 'components/Popup';
@@ -48,4 +48,4 @@ const ConfirmRemoveProduct = ({
   );
 };
 
-export default ConfirmRemoveProduct;
+export default memo(ConfirmRemoveProduct);

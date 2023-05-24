@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import cn from 'classnames';
 import styles from './ProductModal.module.sass';
 import Popup from 'components/Popup';
@@ -85,4 +85,4 @@ const ProductModal = (props: IProductModalProps) => {
   );
 };
 
-export default ProductModal;
+export default memo(ProductModal);

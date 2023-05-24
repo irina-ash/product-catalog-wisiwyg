@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import cn from "classnames";
 
 import ProductListItem from 'components/ProductListItem';
@@ -6,9 +6,9 @@ import CategoryItem from 'components/CategoryItem';
 
 import {useAppDispatch} from "store/index";
 
-import AddIcon from "icons/Add.svg";
-import EditIcon from "icons/Edit.svg";
-import RemoveIcon from "icons/Bin.svg";
+import {ReactComponent as AddIcon} from "icons/Add.svg";
+import {ReactComponent as EditIcon} from "icons/Edit.svg";
+import {ReactComponent as RemoveIcon} from "icons/Bin.svg";
 
 import styles from './ProductList.module.sass';
 
@@ -146,4 +146,4 @@ const ProductList = ({
   );
 };
 
-export default ProductList;
+export default memo(ProductList);

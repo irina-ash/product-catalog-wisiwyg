@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from './NotFoundWithButton.module.sass';
 
 interface INotFoundWithButtonProp {
@@ -17,4 +17,4 @@ const NotFoundWithButton = (props: INotFoundWithButtonProp) => (
   </div>
 );
 
-export default NotFoundWithButton;
+export default memo(NotFoundWithButton);

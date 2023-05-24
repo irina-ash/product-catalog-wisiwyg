@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from './AlertPublishProduct.module.sass';
 
 interface AlertPublishProductProp {
@@ -15,4 +15,4 @@ const AlertPublishProduct = (props: AlertPublishProductProp) => {
   );
 };
 
-export default AlertPublishProduct;
+export default memo(AlertPublishProduct);

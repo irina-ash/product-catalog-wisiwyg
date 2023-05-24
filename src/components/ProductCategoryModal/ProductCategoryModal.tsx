@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import cn from 'classnames';
 import styles from './ProductCategoryModal.module.sass';
 import Popup from 'components/Popup';
@@ -82,4 +82,4 @@ const ProductCategoryModal = (props: IProductCategoryModalProps) => {
   );
 };
 
-export default ProductCategoryModal;
+export default memo(ProductCategoryModal);
