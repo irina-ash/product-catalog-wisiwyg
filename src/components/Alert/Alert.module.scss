@@ -1,0 +1,11 @@
+@import "styles/colors";
+
+.button {
+  margin-top: 24px;
+}
+
+.alert {
+  background-color: $clr-warning;
+  color: $clr-orange;
+  padding: 16px;
+}

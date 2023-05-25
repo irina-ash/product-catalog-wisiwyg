@@ -10,9 +10,8 @@ export const productSlice = createSlice({
         addProduct(state: IProductsState, action:PayloadAction<PostProductArgument>) {
             const products = state.productsAll;
             const ids = products.map(p => p.id || 0);
-            const lastId = Math.max(...ids);
             products.push({
-                id: +lastId,
+                id: Math.max(...ids) + 1,
                 active: false,
                 title: action.payload.title,
                 categoryId: action.payload.productCategory,
@@ -64,5 +63,6 @@ export const {
     clearTitleProductLoadingState,
     setDeleteProductLoadingState,
 } = productSlice.actions;
+
 export const selectProductsState = (state: TRootState) => state.products;
 export default productSlice.reducer;

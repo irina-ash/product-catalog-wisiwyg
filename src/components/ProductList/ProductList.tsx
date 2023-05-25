@@ -5,16 +5,12 @@ import Button from "components/Button";
 import ProductListItem from 'components/ProductListItem';
 import CategoryItem from 'components/CategoryItem';
 
-import {useAppDispatch} from "store/index";
-
 import {ReactComponent as AddIcon} from "icons/Add.svg";
 import {ReactComponent as EditIcon} from "icons/Edit.svg";
 import {ReactComponent as RemoveIcon} from "icons/Bin.svg";
 
 import styles from './ProductList.module.scss';
 
-import {IProductItem} from "entities/product/product.types";
-import {IProductCategory} from "entities/category/category.types";
 import {IProductListProps} from "./types";
 import {TITLE} from "components/ProductList/store";
 
@@ -29,20 +25,12 @@ const ProductList = ({
     onRemoveProductClick,
     onAddCategoryClick,
 }: IProductListProps) => {
-  const [expandList, setExpandList] = useState<number[]>([]);
+  const [expandId, setExpandId] = useState<number | null>(null);
   const [publishError, setPublishError] = useState<string | null>(null);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setExpandList(categories?.map(c => c.id));
-  }, [categories]);
 
   const onExpandCategory = useCallback((id: number) => {
-      setExpandList(oldList => {
-        if (oldList?.includes(id)) return oldList?.filter(a => a !== id) || [];
-        else return [...oldList, id];
-      });
-  }, [expandList]);
+    setExpandId(id);
+  }, [expandId]);
 
   return (
     <>
@@ -73,10 +61,10 @@ const ProductList = ({
                 }
               name={category.title}
               onClick={() => onExpandCategory(category.id)}
-              selected={expandList?.includes(category.id)}
+              selected={expandId === category.id}
             />
 
-            {expandList[category.id] && (
+            {(expandId === category.id) && (
               <ul className={styles.list}>
                 {category?.products?.map((item, idx) => (
                     <ProductListItem

@@ -1,25 +1,21 @@
-import React, {memo} from 'react';
+import React, {FC, memo} from 'react';
 import cn from 'classnames';
 import styles from './ConfirmRemoveProduct.module.scss';
+import Button from 'components/Button';
 import Popup from 'components/Popup';
-import {IPopupModalCommonProps} from 'entities/common/common.types';
-import {IProductItem} from "entities/product/product.types";
 import {useAppDispatch, useAppSelector} from 'store/index';
 import {deleteProduct, selectProductsState} from 'entities/product/product.slice';
+import { IConfirmRemoveProductProps } from './types';
+import { CONFIRM_MSG, TITLE, TITLE_COMPLETE } from './constants';
 
-interface ConfirmRemoveProductProp extends IPopupModalCommonProps {
-  product?: IProductItem | null;
-}
-
-const ConfirmRemoveProduct = ({
+const ConfirmRemoveProduct: FC<IConfirmRemoveProductProps>= ({
   opened,
   onCloseModal,
   product,
-}: ConfirmRemoveProductProp) => {
+}) => {
   const {deleting} = useAppSelector(selectProductsState);
 
   const complete = deleting === 'success';
-  const isSubmitting = deleting === 'loading';
   const dispatch = useAppDispatch();
 
   const onConfirm = () => {
@@ -31,19 +27,26 @@ const ConfirmRemoveProduct = ({
   return (
     <Popup
       description={
-        !complete
-          ? `Подтвердите удаление продукта "${product?.title}" из каталога`
+        !complete && product?.title
+          ? CONFIRM_MSG(product?.title)
           : null
       }
-      title={complete ? 'Продукт успешно удалён' : 'Удаление продукта'}
+      title={complete ? TITLE_COMPLETE : TITLE}
     >
-      <button
-          className={styles.button}
-          disabled={!product || isSubmitting}
-          onClick={onConfirm}
-      >
-        Подтвердить
-      </button>
+      {complete ? (
+        <Button full onClick={onCloseModal}>Закрыть</Button>
+      ) : (
+        <div className={styles.buttons}>
+          <Button onClick={onCloseModal}>Отмена</Button>
+          <Button
+              disabled={!product}
+              onClick={onConfirm}
+              theme="success"
+          >
+            Подтвердить
+          </Button>
+        </div>
+      )}
     </Popup>
   );
 };

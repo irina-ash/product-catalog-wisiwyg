@@ -5,7 +5,7 @@ import htmlToDraft from 'html-to-draftjs';
 
 import Button from 'components/Button';
 import ProductInfo from "components/ProductInfo";
-import AlertPublishProduct from "components/AlertPublishProduct";
+import Alert from "components/Alert";
 
 import {wysiwygToolbar} from './toolbar';
 import {initialProduct} from "entities/product/product.store";
@@ -128,7 +128,7 @@ const ProductInfoEdit = ({mode, onFormChanged, product, setMode}: IProductInfoEd
                 : <ProductInfo product={values}/>
             }
             {publishError &&
-                <AlertPublishProduct
+                <Alert
                     message={`Не заполнены обязательные поля: ${publishError}`}
                     title="Сохранение опубликованного продукта"
                 />

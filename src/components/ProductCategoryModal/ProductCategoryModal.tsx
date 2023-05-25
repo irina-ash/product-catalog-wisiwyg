@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {FC, memo, useEffect, useState} from 'react';
 import cn from 'classnames';
 import styles from './ProductCategoryModal.module.scss';
 import Button from 'components/Button';
@@ -12,9 +12,9 @@ import {
 } from 'entities/category/category.slice';
 import {IProductCategoryModalProps} from "./types";
 import {selectProductsState} from "entities/product/product.slice";
-import { TITLE_COMPLETE, TITLE } from './constants';
+import { TITLE_COMPLETE, TITLE, LABEL_CATEGORY } from './constants';
 
-const ProductCategoryModal = ({onCloseModal, opened, category, type}: IProductCategoryModalProps) => {
+const ProductCategoryModal: FC<IProductCategoryModalProps> = ({onCloseModal, opened, category, type}) => {
   const [name, setName] = useState("");
   const {creating, updating} = useAppSelector(selectCategoriesState);
   const {productsAll} = useAppSelector(selectProductsState);
@@ -34,6 +34,7 @@ const ProductCategoryModal = ({onCloseModal, opened, category, type}: IProductCa
   useEffect(() => {
     if (complete) {
       dispatch(getProductTree(productsAll));
+      onCloseModal();
     }
   }, [complete]);
 
@@ -56,11 +57,8 @@ const ProductCategoryModal = ({onCloseModal, opened, category, type}: IProductCa
   };
 
   return (
-    <Popup
-      title={complete ? TITLE_COMPLETE[type] : TITLE[type]}
-    >
-        <form onSubmit={onSubmit} >
-          <label>Наименование категории</label>
+    <Popup title={complete ? TITLE_COMPLETE[type] : TITLE[type]}>
+          <label>{LABEL_CATEGORY}</label>
           <input
             className={styles.input}
             name="name"
@@ -78,13 +76,13 @@ const ProductCategoryModal = ({onCloseModal, opened, category, type}: IProductCa
             </Button>
             <Button
               disabled={!name || isSubmitting}
-              type="submit"
+              type="button"
               theme="success"
+              onClick={onSubmit}
             >
               {isSubmitting ? 'Сохранение...' : 'Сохранить'}
             </Button>
           </div>
-      </form>
     </Popup>
   );
 };

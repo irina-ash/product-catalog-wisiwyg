@@ -1,6 +1,5 @@
 import React, {useEffect, useState, MouseEvent} from 'react';
 import styles from './ProductCatalog.module.scss';
-import Loader from 'components/Loader';
 import ProductList from 'components/ProductList';
 import ProductInfoEdit from 'components/ProductInfoEdit';
 import ProductCategoryModal from 'components/ProductCategoryModal';
@@ -20,7 +19,7 @@ import {
     selectCategoriesState,
     setDeleteCategoryLoadingState
 } from 'entities/category/category.slice';
-import NotFoundWithButton from 'components/NotFoundWithButton';
+import NotFound from 'components/NotFound';
 import {defaultCategoryOptions, defaultProductOptions} from "./store";
 import {IProductCategoryModalOptions, IProductModalOptions} from "./types";
 import {IProductCategory} from "entities/category/category.types";
@@ -116,8 +115,6 @@ const ProductCatalog = () => {
         setProductModal({type: 'delete', opened: true, product: product});
     };
 
-    if (getCategoriesLoadingState === "loading") return <Loader/>;
-
     return (
         <section className={styles.section}>
             {categories?.length > 0 ?
@@ -136,21 +133,19 @@ const ProductCatalog = () => {
                         />
                     </div>
                     <div className={styles.rightSide}>
-                        {getProductsLoadingState === 'loading' ?
-                            <Loader/> :
-                            (productId && productInfo) ?
-                                <ProductInfoEdit
-                                    mode={mode}
-                                    product={productInfo}
-                                    onFormChanged={(value) => setHasUnsavedChanges(value)}
-                                    setMode={setMode}
-                                /> :
-                                <NotFoundWithButton subTitle="Нажмите на название продукта для просмотра"
-                                                    title="Вы ничего не выбрали"/>
+                        {(productId && productInfo) ?
+                            <ProductInfoEdit
+                                mode={mode}
+                                product={productInfo}
+                                onFormChanged={(value) => setHasUnsavedChanges(value)}
+                                setMode={setMode}
+                            /> :
+                            <NotFound subTitle="Нажмите на название продукта для просмотра"
+                                                title="Вы ничего не выбрали"/>
                         }
                     </div>
                 </main> : (
-                    <NotFoundWithButton
+                    <NotFound
                         subTitle="Следите за обновлениями каталога"
                         title="Категорий и продуктов пока нет"
                     />

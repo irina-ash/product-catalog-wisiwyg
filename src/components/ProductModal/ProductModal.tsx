@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {FC, memo, useEffect, useState} from 'react';
 import cn from 'classnames';
 import styles from './ProductModal.module.scss';
 import Button from 'components/Button';
@@ -10,25 +10,14 @@ import {
   selectProductsState,
 } from 'entities/product/product.slice';
 import {IProductModalProps} from "./types";
+import { NAME_LABEL, TITLE, TITLE_COMPLETE } from './constants';
 
-const title = {
-  update: 'Редактировать продукт',
-  create: 'Добавить продукт',
-};
-
-const titleComplete = {
-  update: 'Продукт изменён',
-  create: 'Новый продукт добавлен',
-};
-
-const ProductModal = ({onCloseModal, opened, type, category, product}: IProductModalProps) => {
+const ProductModal: FC<IProductModalProps> = ({onCloseModal, opened, type, category, product}) => {
   const [name, setName] = useState("");
   const {creating, updating} = useAppSelector(selectProductsState);
 
-  const complete =
-      creating === 'success' || updating === 'success';
-  const isSubmitting =
-      creating === 'loading' || updating === 'loading';
+  const complete = creating === 'success' || updating === 'success';
+  const isSubmitting = creating === 'loading' || updating === 'loading';
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -53,6 +42,7 @@ const ProductModal = ({onCloseModal, opened, type, category, product}: IProductM
       };
       dispatch(addProduct(data));
     }
+    onCloseModal();
   };
 
   const initialValues = {
@@ -63,16 +53,15 @@ const ProductModal = ({onCloseModal, opened, type, category, product}: IProductM
     <Popup
       title={
         complete 
-        ? titleComplete[type] 
-        : `${title[type]}${
+        ? TITLE_COMPLETE[type] 
+        : `${TITLE[type]}${
               (type === "create" && category) 
               ? ` в категорию "${category.title}"` 
               : ''}`
       }
     >
-        <form onSubmit={onSubmit}>
             <label>
-                Наименование продукта
+                {NAME_LABEL}
                 <input
                   className={styles.input}
                   name="name"
@@ -92,13 +81,13 @@ const ProductModal = ({onCloseModal, opened, type, category, product}: IProductM
               <Button
                 className={styles.button}
                 disabled={!name?.length || isSubmitting}
-                type="submit"
+                type="button"
                 theme="success"
+                onClick={onSubmit}
               >
                 {isSubmitting ? 'Сохранение...' : 'Сохранить'}
               </Button>
             </div>
-        </form>
     </Popup>
   );
 };

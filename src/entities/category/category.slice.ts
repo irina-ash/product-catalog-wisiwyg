@@ -15,10 +15,9 @@ export const categorySlice = createSlice({
         addCategory(state: ICategoryState, action:PayloadAction<PostProductCategoryArgumentData>) {
             const oldItems = state.items;
             const ids = oldItems.map(p => p.id || 0);
-            const lastId = Math.max(...ids);
             oldItems.push({
                 products: [],
-                id: +lastId,
+                id: Math.max(...ids) + 1,
                 active: false,
                 title: action.payload.title || "",
             });

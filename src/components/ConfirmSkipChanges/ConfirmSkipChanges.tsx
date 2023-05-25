@@ -1,33 +1,29 @@
-import React, {memo} from 'react';
+import React, {FC, memo} from 'react';
 import styles from './ConfirmSkipChanges.module.scss';
 import Popup from 'components/Popup';
-import {IPopupModalCommonProps} from 'entities/common/common.types';
+import Button from 'components/Button';
+import { IConfirmSkipChangesProps } from './types';
+import { BTN_CANCEL, BTN_OK, DESCRIPTION, TITLE } from './constants';
 
-interface ConfirmSkipChangesProp extends IPopupModalCommonProps {
-  onSkipClick: () => void;
-  onPreviewClick: () => void;
-}
-
-const ConfirmSkipChanges = (props: ConfirmSkipChangesProp) => {
-  return (
-    <Popup
-      description="На форме редактирования продукта имеются несохранённые изменения. Выберите действие."
-      title="Сохранение изменений"
-    >
-      <div className={styles.buttons}>
-        <button
-          onClick={props.onSkipClick}
-        >
-          Отменить изменения
-        </button>
-        <button
-          onClick={props.onPreviewClick}
-        >
-          Предпросмотр и сохранение
-        </button>
-      </div>
-    </Popup>
-  );
-};
+const ConfirmSkipChanges: FC<IConfirmSkipChangesProps> = ({onPreviewClick, onSkipClick}) => (
+  <Popup
+    description={DESCRIPTION}
+    title={TITLE}
+  >
+    <div className={styles.buttons}>
+      <Button
+        onClick={onSkipClick}
+      >
+        {BTN_CANCEL}
+      </Button>
+      <Button
+        onClick={onPreviewClick}
+        theme="success"
+      >
+        {BTN_OK}
+      </Button>
+    </div>
+  </Popup>
+);
 
 export default memo(ConfirmSkipChanges);

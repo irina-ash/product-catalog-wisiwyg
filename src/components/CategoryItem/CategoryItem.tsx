@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
+import React, {FC, memo} from 'react';
 import cn from 'classnames';
 import Arrow from 'components/Arrow';
 import styles from './CategoryItem.module.scss';
 import {ICategoryItemProps} from "./types";
 
-const CategoryItem = ({name, selected, controls, onClick}: ICategoryItemProps) => (
+const CategoryItem: FC<ICategoryItemProps> = ({name, selected, controls, onClick}) => (
     <div className={styles.category}>
       <div className={styles.categoryWithArrow} onClick={onClick}>
         <Arrow
