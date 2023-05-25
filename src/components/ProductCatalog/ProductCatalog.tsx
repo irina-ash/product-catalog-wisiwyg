@@ -38,13 +38,11 @@ const ProductCatalog = () => {
     const [nextId, setNextId] = useState<number | null>(null);
 
     const {
-        loading: getProductsLoadingState,
         productInfo,
         productsAll,
     } = useAppSelector(selectProductsState);
 
     const {
-        loading: getCategoriesLoadingState,
         items: categories,
     } = useAppSelector(selectCategoriesState);
     const dispatch = useAppDispatch();
@@ -61,15 +59,6 @@ const ProductCatalog = () => {
             setMode('edit');
         }
     }, [productId]);
-
-    const handleSelectProductClick = (id: number) => {
-        if (hasUnsavedChanges) {
-            setNextId(id);
-            setSkipChangesOpen(true);
-        } else {
-            setProductId(id);
-        }
-    };
 
     const handleSkipChanges = () => {
         if (nextId) {
