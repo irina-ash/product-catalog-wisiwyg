@@ -16,8 +16,10 @@
 
 ## Используемые библиотеки для работы с wysiwyg
 
-https://www.npmjs.com/package/draft-js
-https://www.npmjs.com/package/draftjs-to-html
-https://www.npmjs.com/package/html-to-draftjs
-https://www.npmjs.com/package/react-draft-wysiwyg
+[draft-js](https://www.npmjs.com/package/draft-js)
 
+[draftjs-to-html](https://www.npmjs.com/package/draftjs-to-html)
+
+[html-to-draftjs](https://www.npmjs.com/package/html-to-draftjs)
+
+[react-draft-wysiwyg](https://www.npmjs.com/package/react-draft-wysiwyg)
